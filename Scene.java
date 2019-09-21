@@ -3,7 +3,7 @@ import java.util.List;
 
 
 public class Scene {
-    public double gravity = 1000;
+    public double gravity = 100000;
     Sprite spaceShip;
     public List<Planet> planets;
 
@@ -32,11 +32,18 @@ public class Scene {
             spaceShip.yVelocity += forceY * timeEllapsed;
         }
 
-        System.out.println("outside");
-        if (Controls.w) {
-            System.out.println("inside");
-            spaceShip.yVelocity -= timeEllapsed * 10;
+        if (controls.w) {
+            spaceShip.yVelocity += Math.cos(spaceShip.rotation) * -10;
+            spaceShip.xVelocity += Math.sin(spaceShip.rotation) * 10;
         }
+
+        if (controls.a) {
+            spaceShip.rotation -= Math.PI / 32;
+        }
+
+        if (controls.d) {
+            spaceShip.rotation += Math.PI / 32;
+        } 
 
         spaceShip.xPosition += spaceShip.xVelocity * timeEllapsed;
         spaceShip.yPosition += spaceShip.yVelocity * timeEllapsed;

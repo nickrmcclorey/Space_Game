@@ -12,7 +12,7 @@ public class GameRunner extends Thread {
     public void run() {
         System.out.println("let's go");
         while (true) {
-            int sleepTime = 100;
+            int sleepTime = 1000 / 60;
             try { Thread.sleep(sleepTime); } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
             camera.scene.update(sleepTime * 1.0 / 1000, controls);
             camera.repaint();

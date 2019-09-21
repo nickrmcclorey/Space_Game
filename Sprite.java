@@ -18,9 +18,20 @@ public class Sprite {
 
     public Polygon polygon() {
         Polygon polygon = new Polygon();
-        polygon.addPoint((int)xPosition, (int) yPosition - 20);
-        polygon.addPoint((int) xPosition + 20, (int) yPosition + 20);
-        polygon.addPoint((int) xPosition - 20, (int) yPosition + 20);
+        // top point of spaceship
+        double x = Math.cos(3 * Math.PI / 2 + rotation) * 20 + xPosition;
+        double y = Math.sin(3 * Math.PI / 2 + rotation) * 20 + yPosition;
+        polygon.addPoint((int)x, (int)y);
+
+        // bottom right
+        x = Math.cos(Math.PI / 4 + rotation) * 20 + xPosition;
+        y = Math.sin(Math.PI / 4 + rotation) * 20 + yPosition;
+        polygon.addPoint((int)x, (int)y);
+
+        // bottom left
+        x = Math.cos(3 * Math.PI / 4 + rotation) * 20 + xPosition;
+        y = Math.sin(3 * Math.PI / 4 + rotation) * 20 + yPosition;
+        polygon.addPoint((int)x, (int)y);
         return polygon;
     }
 
