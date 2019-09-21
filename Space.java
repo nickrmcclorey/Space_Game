@@ -30,10 +30,11 @@ public class Space {
         Container contentPane = frame.getContentPane();
 
         Camera panel = new Camera(new Scene());
-        panel.addKeyListener(new Controls());
+        Controls controls = new Controls();
+        panel.addKeyListener(controls);
         panel.setFocusable(true);
         panel.requestFocusInWindow();
-        GameRunner runner = new GameRunner(panel);
+        GameRunner runner = new GameRunner(panel, controls);
         runner.start();
 
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));

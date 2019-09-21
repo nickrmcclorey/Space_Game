@@ -3,19 +3,19 @@ import java.util.List;
 
 
 public class Scene {
-    public double gravity = 2000;
+    public double gravity = 1000;
     Sprite spaceShip;
     public List<Planet> planets;
 
     public Scene() {
-        spaceShip = new Sprite(700, 700, 0, 0, 0);
+        spaceShip = new Sprite(300, 300, 0, 0, 0);
         // spaceShip = new Sprite(300, 300, 0, 0, 0);
         planets = new ArrayList<Planet>();
-        planets.add(new Planet(300, 300, 200));
-        // planets.add(new Planet(800, 500, 200));
+        planets.add(new Planet(0, 0, 200));
+        planets.add(new Planet(800, 500, 200));
     }
 
-    public void update(double timeEllapsed) {
+    public void update(double timeEllapsed, Controls controls) {
         for (Planet planet : planets) {
             double dx = planet.xPosition - spaceShip.xPosition;
             double dy = planet.yPosition - spaceShip.yPosition;
@@ -30,6 +30,12 @@ public class Scene {
             // System.out.println("forceY: " + forceY);
             spaceShip.xVelocity += forceX * timeEllapsed;
             spaceShip.yVelocity += forceY * timeEllapsed;
+        }
+
+        System.out.println("outside");
+        if (Controls.w) {
+            System.out.println("inside");
+            spaceShip.yVelocity -= timeEllapsed * 10;
         }
 
         spaceShip.xPosition += spaceShip.xVelocity * timeEllapsed;

@@ -30,4 +30,5 @@ public class Sprite {
         System.out.println("xVelocity: " + xVelocity);
         System.out.println("yVelocity: " + yVelocity);
     }
+
 }

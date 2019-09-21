@@ -16,7 +16,8 @@ public class Camera extends JPanel {
             int x = planet.xPosition + xOffset;
             int y = planet.yPosition + yOffset;
             int radius = planet.radius * zoom;
-            g.drawOval(x, y, radius, radius);
+
+            g.drawOval(x - radius, y - radius, radius * 2, radius * 2);
         }
 
         g.drawPolygon(scene.spaceShip.polygon());
