@@ -4,8 +4,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -26,11 +26,16 @@ public class Space {
                 System.exit(0);
             }
         });
+
         Container contentPane = frame.getContentPane();
 
         Camera panel = new Camera(new Scene());
+        panel.addKeyListener(new Controls());
+        panel.setFocusable(true);
+        panel.requestFocusInWindow();
+        GameRunner runner = new GameRunner(panel);
+        runner.start();
 
-        
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
         contentPane.add(panel, BorderLayout.PAGE_END);
         frame.setLocationRelativeTo(null);
