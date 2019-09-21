@@ -14,8 +14,39 @@ public class GameRunner extends Thread {
         while (true) {
             int sleepTime = 1000 / 60;
             try { Thread.sleep(sleepTime); } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
-            camera.scene.update(sleepTime * 1.0 / 1000, controls);
+            updateScene(sleepTime * 1.0 / 1000);
             camera.repaint();
         }
+    }
+
+    public void updateScene(double timeEllapsed) {
+        Sprite spaceShip = camera.scene.spaceShip;
+        for (Planet planet : camera.scene.planets) {
+            double dx = planet.xPosition - spaceShip.xPosition;
+            double dy = planet.yPosition - spaceShip.yPosition;
+            double distanceSquared = Math.pow(dx, 2) + Math.pow(dy, 2);
+            double force = Planet.gravityStrength * planet.mass / distanceSquared;
+            double theta = Math.atan2(dy, dx);
+            double forceX = Math.cos(theta) * force;
+            double forceY = Math.sin(theta) * force;
+            spaceShip.xVelocity += forceX * timeEllapsed;
+            spaceShip.yVelocity += forceY * timeEllapsed;
+        }
+
+        if (controls.w) {
+            spaceShip.yVelocity += Math.cos(spaceShip.rotation) * -10;
+            spaceShip.xVelocity += Math.sin(spaceShip.rotation) * 10;
+        }
+
+        if (controls.a) {
+            spaceShip.rotation -= Math.PI / 32;
+        }
+
+        if (controls.d) {
+            spaceShip.rotation += Math.PI / 32;
+        }
+
+        spaceShip.xPosition += spaceShip.xVelocity * timeEllapsed;
+        spaceShip.yPosition += spaceShip.yVelocity * timeEllapsed;
     }
 }

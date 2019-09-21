@@ -7,23 +7,22 @@ public class Camera extends JPanel {
     int zoom = 1;
     Scene scene;
 
+    public Camera(Scene scene) {
+        this.scene = scene;
+    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        for (int k = 0; k < scene.planets.size(); k++) {
-            Planet planet = scene.planets.get(k);
+        for (Planet planet : scene.planets) {
             int x = planet.xPosition + xOffset;
             int y = planet.yPosition + yOffset;
             int radius = planet.radius * zoom;
 
-            g.drawOval(x - radius, y - radius, radius * 2, radius * 2);
+            g.setColor(planet.color);
+            g.fillOval(x - radius, y - radius, radius * 2, radius * 2);
         }
 
         g.drawPolygon(scene.spaceShip.polygon());
-    }
-
-    public Camera(Scene scene) {
-        this.scene = scene;
     }
 }

@@ -8,11 +8,11 @@ public class Sprite {
     double yVelocity;
     double rotation;
 
-    public Sprite(int xPos, int yPos, int xVel, int yVel, double rot) {
+    public Sprite(int xPos, int yPos, double rot) {
         xPosition = xPos;
         yPosition = yPos;
-        xVelocity = xVel;
-        yVelocity = yVel;
+        xVelocity = 0;
+        yVelocity = 0;
         rotation = rot;
     }
 

@@ -26,5 +26,4 @@ public class Controls implements KeyListener {
             d = false;
         }
     }
-
 }

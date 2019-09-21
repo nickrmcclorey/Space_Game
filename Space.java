@@ -1,16 +1,7 @@
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 
@@ -29,7 +20,7 @@ public class Space {
 
         Container contentPane = frame.getContentPane();
 
-        Camera panel = new Camera(new Scene());
+        Camera panel = new Camera(Scene.scene1());
         Controls controls = new Controls();
         panel.addKeyListener(controls);
         panel.setFocusable(true);
