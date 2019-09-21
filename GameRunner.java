@@ -1,8 +1,10 @@
 import java.lang.Thread;
+import java.util.concurrent.Semaphore;
 
 public class GameRunner extends Thread {
     Camera camera;
     Controls controls;
+    Semaphore lock = new Semaphore(1, true);
 
     public GameRunner(Camera cam, Controls controller) {
         camera = cam;
@@ -13,10 +15,22 @@ public class GameRunner extends Thread {
         System.out.println("let's go");
         while (true) {
             int sleepTime = 1000 / 60;
-            try { Thread.sleep(sleepTime); } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
+            try { 
+                Thread.sleep(sleepTime);
+                lock.acquire();
+            } catch(InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
             updateScene(sleepTime * 1.0 / 1000);
             camera.repaint();
+            lock.release();
         }
+    }
+
+    public void loadScene(Scene scene) {
+        try { lock.acquire(); } catch (Exception e) {}
+        camera.scene = scene;
+        lock.release();
     }
 
     public void updateScene(double timeEllapsed) {
