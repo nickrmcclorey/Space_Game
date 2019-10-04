@@ -4,6 +4,7 @@ public class Controls implements KeyListener {
     public boolean w;
     public boolean a;
     public boolean d;
+    public boolean r;
 
     public void keyTyped(KeyEvent e) {}
 
@@ -14,6 +15,8 @@ public class Controls implements KeyListener {
             a = true;
         } else if (e.getKeyCode() == KeyEvent.VK_D) {
             d = true;
+        } else if (e.getKeyCode() == KeyEvent.VK_R) {
+            r = true;
         }
     }
     
@@ -24,6 +27,8 @@ public class Controls implements KeyListener {
             a = false;
         } else if (e.getKeyCode() == KeyEvent.VK_D) {
             d = false;
+        } else if (e.getKeyCode() == KeyEvent.VK_R) {
+            r = false;
         }
     }
 }

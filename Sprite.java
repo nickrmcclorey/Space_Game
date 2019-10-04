@@ -1,5 +1,4 @@
 import java.awt.Polygon;
-import java.awt.Graphics;
 
 public class Sprite {
     double xPosition;

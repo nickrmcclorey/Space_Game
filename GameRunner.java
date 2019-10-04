@@ -1,5 +1,7 @@
 import java.lang.Thread;
 import java.util.concurrent.Semaphore;
+import java.awt.Point;
+import java.awt.Polygon;
 
 public class GameRunner extends Thread {
     Camera camera;
@@ -31,9 +33,16 @@ public class GameRunner extends Thread {
         try { lock.acquire(); } catch (Exception e) {}
         camera.scene = scene;
         lock.release();
+        System.out.println("reset");
     }
-
+    
     public void updateScene(double timeEllapsed) {
+        
+        if (controls.r) {
+            camera.scene.reset();
+            return;
+        }
+
         Sprite spaceShip = camera.scene.spaceShip;
         for (Planet planet : camera.scene.planets) {
             double dx = planet.xPosition - spaceShip.xPosition;
@@ -45,6 +54,12 @@ public class GameRunner extends Thread {
             double forceY = Math.sin(theta) * force;
             spaceShip.xVelocity += forceX * timeEllapsed;
             spaceShip.yVelocity += forceY * timeEllapsed;
+
+            if (Math.sqrt(distanceSquared) < planet.radius) {
+                spaceShip.yVelocity = 0;
+                spaceShip.xVelocity = 0;
+                return;
+            }
         }
 
         if (controls.w) {
@@ -59,6 +74,7 @@ public class GameRunner extends Thread {
         if (controls.d) {
             spaceShip.rotation += Math.PI / 32;
         }
+
 
         spaceShip.xPosition += spaceShip.xVelocity * timeEllapsed;
         spaceShip.yPosition += spaceShip.yVelocity * timeEllapsed;
